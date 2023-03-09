@@ -28,11 +28,11 @@ export default function Form() {
     <form onSubmit={saveApplication}>
       <label htmlFor="company">
         Company
-        <input type="text" id="company" />
+        <input type="text" id="company" required/>
       </label>
       <label htmlFor="role">
         Role
-        <input type="text" id="role" />
+        <input type="text" id="role" required/>
       </label>
       <label htmlFor="contact">
         Contact
@@ -44,7 +44,7 @@ export default function Form() {
       </label>
       <label htmlFor="source">
         Application Link
-        <input type="text" id="source" />
+        <input type="text" id="source" required/>
       </label>
       <button>Track</button>
     </form>

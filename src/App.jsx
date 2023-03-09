@@ -1,14 +1,13 @@
-import { useState } from 'react'
 import Form from './Components/Form/Form'
-import reactLogo from './assets/react.svg'
+import Card from './Components/Card/Card'
 import './App.css'
 
 function App() {
-  const [application, setApplication] = useState('')
-
   return (
     <div className="App">
+      <h1>Job Tracker</h1>
       <Form />
+      <Card />
     </div>
   )
 }
