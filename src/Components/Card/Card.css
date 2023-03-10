@@ -1,6 +1,16 @@
 .application {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1000px;
     background-color: black;
-    border-radius: 20px;
+    border: 2px solid rgb(95, 95, 95);
     padding: 8px;
-    margin-top: 10px;
 }
+
+@media (prefers-color-scheme: light) {
+    .application {
+      color: #213547;
+      background-color: #ffffff;
+    }
+  }

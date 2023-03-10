@@ -3,10 +3,26 @@ form {
     flex-direction: column;
     background-color: black;
     padding: 18px;
-    border-radius: 20px;
+    border: 2px solid rgb(95, 95, 95);
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
 }
 
 form button {
     margin-top: 25px;
     background-color: gray;
 }
+
+form input {
+    margin: 5px;
+}
+
+@media (prefers-color-scheme: light) {
+    form {
+      color: #213547;
+      background-color: #ffffff;
+    }
+  }

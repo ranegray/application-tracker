@@ -1,38 +1,37 @@
+import { useEffect } from "react";
 import db from "../../firebase.js";
-import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 import "./Card.css";
 
-export default function Card() {
-  const [applications, setApplications] = useState([]);
-
-  const getApplications = async () => {
-    await getDocs(collection(db, "applications")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setApplications(newData);
-      console.log(applications, newData);
-    });
+export default function Card({ applications, getApplications }) {
+  const deleteApplication = async ({ target }) => {
+    console.log(target.attributes.data.value);
+    const appRef = doc(db, "applications", target.attributes.data.value);
+    await deleteDoc(appRef);
+    getApplications();
   };
 
   useEffect(() => {
     getApplications();
   }, []);
 
-  console.log(applications);
-
   return (
     <div>
       {applications &&
         applications.map((application) => {
           return (
-            <div className="application">
+            <div key={application.id} className="application">
               <h2>{application.company}</h2>
               <h3>{application.role}</h3>
               <p>Date applied: {application["date-applied"]}</p>
-              <p><a href="{application.source}">Open Application</a></p>
+              <p>
+                <a href={application.source} target="_blank">
+                  Open Application
+                </a>
+              </p>
+              <p onClick={deleteApplication} data={application.id}>
+                Remove
+              </p>
             </div>
           );
         })}
