@@ -1,8 +1,9 @@
-import db from "./firebase.js";
+import {db} from "./firebase.js";
 import { useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import Form from "./Components/Form/Form";
 import Card from "./Components/Card/Card";
+import SignUp from "./Components/SignUp/SignUp";
 import "./App.css";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <div className="App">
+      <SignUp />
       <h1>Job Tracker</h1>
       <Form getApplications={getApplications} />
       <Card applications={applications} getApplications={getApplications} />
