@@ -4,6 +4,7 @@ import "./Form.css";
 
 export default function Form({ getApplications }) {
   const saveApplication = (event) => {
+    const form = document.querySelector('form');
     event.preventDefault();
 
     const elementsArray = [...event.target.elements];
@@ -15,7 +16,7 @@ export default function Form({ getApplications }) {
 
       return acc;
     }, {});
-
+    form.reset()
     const createApplication = async (form) => {
       await addDoc(collection(db, "applications"), form);
     };
