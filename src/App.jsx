@@ -1,10 +1,9 @@
-import {db} from "./firebase.js";
+import { db } from "./firebase.js";
 import { useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import Form from "./Components/Form/Form";
-import Card from "./Components/Card/Card";
-import SignUp from "./Components/SignUp/SignUp";
-import "./App.css";
+import Form from "./Components/Form";
+import Card from "./Components/Card";
+import SignUp from "./Components/SignUp";
 
 function App() {
   const [applications, setApplications] = useState([]);
@@ -20,9 +19,9 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="m-auto">
       <SignUp />
-      <h1>Job Tracker</h1>
+      <h1 className="text-3xl font-bold">Job Tracker</h1>
       <Form getApplications={getApplications} />
       <Card applications={applications} getApplications={getApplications} />
     </div>
