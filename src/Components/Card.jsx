@@ -30,21 +30,21 @@ export default function Card({ applications, getApplications }) {
         {applications &&
           applications.map((application) => {
             return (
-              <tr key={application.id}>
-                <td>{application.company}</td>
-                <td>{application.role}</td>
-                <td>{application.contact}</td>
-                <td>{application["date-applied"]}</td>
-                <td>
+              <tr key={application.id} className="border">
+                <td className="border">{application.company}</td>
+                <td className="border">{application.role}</td>
+                <td className="border">{application.contact}</td>
+                <td className="border">{application["date-applied"]}</td>
+                <td className="border">
                   <a
-                    href={application.source}
+                    href={`https://${application.source}`}
                     target="_blank"
-                    className="underline "
+                    className="underline"
                   >
                     Open Application
                   </a>
                 </td>
-                <td>
+                <td className="border">
                   <button
                     onClick={deleteApplication}
                     data={application.id}
