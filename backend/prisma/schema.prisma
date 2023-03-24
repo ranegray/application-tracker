@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  role UserRole @default(STANDARD)
-  username String @unique
-  password String
+  role      UserRole @default(STANDARD)
+  email     String   @unique
+  username  String   @unique
+  password  String
 
   applications Application[]
 }
@@ -34,14 +35,18 @@ enum UPDATE_STATUS {
 }
 
 model Application {
-  id String @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
 
-  jobTitle String
-  companyName String
-  status UPDATE_STATUS @default(Saved)
-  
+  jobTitle          String
+  companyName       String
+  status            UPDATE_STATUS @default(Saved)
+  contact           String?
+  linkToApplication String?
+  dateApplied       DateTime?
+  resume            String?
+  notes             String?
 
-  belongsTo User @relation(fields: [belongsToId], references: [id])
+  belongsTo   User   @relation(fields: [belongsToId], references: [id])
   belongsToId String
 }
