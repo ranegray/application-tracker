@@ -14,6 +14,6 @@ app.get('/', (req, res) => {
     res.json({message: 'hello'})
 })
 
-app.use('/', router)
+app.use('/api', router)
 
 export default app;
