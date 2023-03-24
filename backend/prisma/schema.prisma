@@ -9,3 +9,39 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  role UserRole @default(STANDARD)
+  username String @unique
+  password String
+
+  applications Application[]
+}
+
+enum UserRole {
+  GUEST
+  STANDARD
+}
+
+enum UPDATE_STATUS {
+  Saved
+  Applied
+  InterviewOffer
+  JobOffer
+  Rejected
+}
+
+model Application {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  jobTitle String
+  companyName String
+  status UPDATE_STATUS @default(Saved)
+  
+
+  belongsTo User @relation(fields: [belongsToId], references: [id])
+  belongsToId String
+}
