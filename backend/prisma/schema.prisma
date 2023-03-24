@@ -14,7 +14,6 @@ model User {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   role      UserRole @default(STANDARD)
-  email     String   @unique
   username  String   @unique
   password  String
 
