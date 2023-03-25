@@ -48,4 +48,5 @@ model Application {
 
   belongsTo   User   @relation(fields: [belongsToId], references: [id])
   belongsToId String
+  @@unique([id, belongsToId])
 }
