@@ -1,15 +1,12 @@
 import { Router } from 'express';
 import { body, validationResult } from 'express-validator'
+import { createApplication, deleteApplication, getApplications, getOneApplication, updateApplication } from './handlers/applications';
 
 const router = Router();
 
 // Applications
-router.get('/application', (req, res) => {
-    res.json({'message':'hello'})
-})
-router.get('/application/:id', (req, res) => {
-
-})
+router.get('/application', getApplications)
+router.get('/application/:id', getOneApplication)
 router.put('/application/:id', 
     body('jobTitle').optional().isString(),
     body('companyName').optional().isString(),
@@ -20,6 +17,9 @@ router.put('/application/:id',
     body('notes').optional().isString().isLength({max: 140}),
     (req, res) => {
         const errors = validationResult(req);
+
+        updateApplication(req, res)
+
         if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
         }
@@ -33,12 +33,13 @@ router.post('/application',
     body('notes').optional().isString().isLength({max: 140}),
     (req, res) => {
         const errors = validationResult(req);
+
+        createApplication(req, res)
+
         if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
         }
     })
-router.delete('/application/:id', (req, res) => {
-    
-})
+router.delete('/application/:id', deleteApplication)
 
 export default router;
