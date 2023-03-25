@@ -9,7 +9,8 @@ export const createNewUser = async (req, res) => {
         }
     })
 
-    res.token = CreateJWT(user)
+    const token = CreateJWT(user)
+    res.json({ token })
 }
 
 export const signIn = async (req,res) => {
@@ -22,6 +23,11 @@ export const signIn = async (req,res) => {
     const password = await comparePasswords(req.body.password, user.password)
 
     if (!password) {
-
+        res.status(401)
+        res.send('Nope')
+        return
     }
+
+    const token = CreateJWT(user)
+    res.json({ token })
 }
