@@ -3,10 +3,12 @@ import { useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import Form from "./Components/Form";
 import Card from "./Components/Card";
+import NavBar from './Components/NavBar';
 import SignUp from "./Components/SignUp";
 
 function App() {
   const [applications, setApplications] = useState([]);
+  const [createApplication, setCreateApplication] = useState(false)
 
   const getApplications = async () => {
     await getDocs(collection(db, "applications")).then((querySnapshot) => {
@@ -19,11 +21,12 @@ function App() {
   };
 
   return (
-    <div className="m-auto">
-      <SignUp />
-      <h1 className="text-3xl font-bold">Job Tracker</h1>
-      <Form getApplications={getApplications} />
-      <Card applications={applications} getApplications={getApplications} />
+    <div>
+      <NavBar />
+      <div className="m-auto">
+        {createApplication ?? <Form getApplications={getApplications} />}
+        <Card applications={applications} getApplications={getApplications} />
+      </div>
     </div>
   );
 }
