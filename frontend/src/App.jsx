@@ -4,7 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import Form from "./Components/Form";
 import Card from "./Components/Card";
 import NavBar from './Components/NavBar';
-import SignUp from "./Components/SignUp";
+import ShowModal from './Components/ShowModal'
 
 function App() {
   const [applications, setApplications] = useState([]);
@@ -24,9 +24,10 @@ function App() {
     <div>
       <NavBar />
       <div className="m-auto">
-        {createApplication ?? <Form getApplications={getApplications} />}
+        {createApplication ? (<Form getApplications={getApplications} />) : null}
         <Card applications={applications} getApplications={getApplications} />
       </div>
+      <ShowModal createApplication={createApplication} setCreateApplication={setCreateApplication}/>
     </div>
   );
 }
