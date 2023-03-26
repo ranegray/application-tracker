@@ -3,12 +3,12 @@ import { useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import Form from "./Components/Form";
 import Card from "./Components/Card";
-import NavBar from './Components/NavBar';
-import ShowModal from './Components/ShowModal'
+import NavBar from "./Components/NavBar";
+import ShowModal from "./Components/ShowModal";
 
 function App() {
   const [applications, setApplications] = useState([]);
-  const [createApplication, setCreateApplication] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const getApplications = async () => {
     await getDocs(collection(db, "applications")).then((querySnapshot) => {
@@ -22,12 +22,14 @@ function App() {
 
   return (
     <div>
+      {showModal ? (
+        <Form getApplications={getApplications} setShowModal={setShowModal} />
+      ) : null}
       <NavBar />
       <div className="m-auto">
-        {createApplication ? (<Form getApplications={getApplications} />) : null}
         <Card applications={applications} getApplications={getApplications} />
       </div>
-      <ShowModal createApplication={createApplication} setCreateApplication={setCreateApplication}/>
+      <ShowModal showModal={showModal} setShowModal={setShowModal} />
     </div>
   );
 }
