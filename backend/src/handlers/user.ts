@@ -1,6 +1,12 @@
 import prisma from "../db";
 import { comparePasswords, CreateJWT, hashPassword } from "../modules/auth";
 
+let options = {
+    maxAge: 1000 * 60 * 15, // would expire after 15 minutes
+    httpOnly: true, // The cookie only accessible by the web server
+    signed: false // Indicates if the cookie should be signed
+}
+
 export const createNewUser = async (req, res) => {
     const user = await prisma.user.create({
         data: {
@@ -10,7 +16,8 @@ export const createNewUser = async (req, res) => {
     })
 
     const token = CreateJWT(user)
-    res.json({ token })
+    res.cookie("authorization", { token }, options)
+    res.json({message: 'Signup successful'})
 }
 
 export const signIn = async (req,res) => {
@@ -29,5 +36,6 @@ export const signIn = async (req,res) => {
     }
 
     const token = CreateJWT(user)
-    res.json({ token })
+    res.cookie("authorization", { token }, options)
+    res.send('Login successful')
 }
