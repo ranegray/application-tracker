@@ -3,7 +3,7 @@ import { collection, addDoc } from "firebase/firestore";
 
 export default function Form({ getApplications, setShowModal }) {
   const saveApplication = (event) => {
-    setShowModal(false)
+    setShowModal(false);
     const form = document.querySelector("form");
     event.preventDefault();
 
@@ -24,11 +24,17 @@ export default function Form({ getApplications, setShowModal }) {
   };
 
   return (
-    <div onClick={() => setShowModal(false)} className="fixed z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-      <div onClick={(e) => {e.stopPropagation()}} className="w-80 shadow-md px-8 rounded pt-6 pb-8 mb-4 bg-white">
-        <form
-          onSubmit={saveApplication}
-        >
+    <div
+      onClick={() => setShowModal(false)}
+      className="fixed z-50 flex justify-center items-center w-full h-full overflow-y-hidden bg-black bg-opacity-50"
+    >
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className="w-80 shadow-md px-8 rounded pt-6 pb-8 mb-4 bg-white"
+      >
+        <form onSubmit={saveApplication}>
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -57,16 +63,37 @@ export default function Form({ getApplications, setShowModal }) {
               />
             </label>
           </div>
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="Status"
+          >
+            Status
+            <select
+              type="text"
+              id="company"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            >
+              <option value="Saved" selected>
+                Saved
+              </option>
+              <option value="Applied">Applied</option>
+              <option value="InterviewOffer">Interview Offer</option>
+              <option value="JobOffer">Job Offer</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </label>
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="contact"
+              htmlFor="source"
             >
-              Contact
+              Application Link
               <input
                 type="text"
-                id="contact"
+                id="source"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
               />
             </label>
           </div>
@@ -86,14 +113,39 @@ export default function Form({ getApplications, setShowModal }) {
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="source"
+              htmlFor="contact"
             >
-              Application Link
+              Contact (optional)
               <input
                 type="text"
-                id="source"
+                id="contact"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
+              />
+            </label>
+          </div>
+          <div>
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="resume"
+            >
+              Resume (optional)
+              <input
+                type="file"
+                id="resume"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </label>
+          </div>
+          <div>
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="notes"
+            >
+              Notes (optional)
+              <textarea
+                id="notes"
+                maxLength={140}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </label>
           </div>
