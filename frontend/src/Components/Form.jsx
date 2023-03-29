@@ -16,12 +16,15 @@ export default function Form({ getApplications, setShowModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
-    setFormData(() => {
-      for (let i = 0; i < 8; i++) {
-        formData[e.target[i].name] = e.target[i].value;
-      }
-    });
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const formDataObj = {};
+    for (const [key, value] of formData.entries()) {
+      formDataObj[key] = value;
+    }
+
+    console.log(formDataObj);
   };
 
   // const saveApplication = (event) => {
@@ -56,7 +59,7 @@ export default function Form({ getApplications, setShowModal }) {
         }}
         className="w-80 shadow-md px-8 rounded pt-6 pb-8 mb-4 bg-white"
       >
-        <form onSubmit={handleSubmit}>
+        <form method="post" onSubmit={handleSubmit}>
           <div>
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
