@@ -1,36 +1,31 @@
-import { db } from "./firebase.js";
 import { useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import Form from "./Components/Form";
-import Card from "./Components/Card";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
-import ShowModal from "./Components/ShowModal";
+import Form from "./Components/Form";
+import Dashboard from "./Dashboard";
+import Landing from "./Landing";
+import Login from "./Login";
+import Help from "./Help";
 
 function App() {
-  const [applications, setApplications] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const getApplications = async () => {
-    await getDocs(collection(db, "applications")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setApplications(newData);
-    });
-  };
-
   return (
-    <div>
-      {showModal ? (
-        <Form getApplications={getApplications} setShowModal={setShowModal} />
-      ) : null}
+    <BrowserRouter>
+      {showModal ? <Form setShowModal={setShowModal} /> : null}
       <NavBar />
-      <div className="m-auto">
-        <Card applications={applications} getApplications={getApplications} />
-      </div>
-      <ShowModal showModal={showModal} setShowModal={setShowModal} />
-    </div>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/help" element={<Help />} />
+        <Route
+          path="/dashboard"
+          element={
+            <Dashboard showModal={showModal} setShowModal={setShowModal} />
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

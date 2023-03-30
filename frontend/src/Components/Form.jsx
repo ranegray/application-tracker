@@ -2,7 +2,7 @@ import { useState } from "react";
 import { db } from "../firebase.js";
 import { collection, addDoc } from "firebase/firestore";
 
-export default function Form({ getApplications, setShowModal }) {
+export default function Form({ setShowModal }) {
   const [formData, setFormData] = useState({
     companyName: "",
     jobTitle: "",
@@ -51,7 +51,7 @@ export default function Form({ getApplications, setShowModal }) {
   return (
     <div
       onClick={() => setShowModal(false)}
-      className="fixed z-50 flex justify-center items-center w-full h-full overflow-y-hidden bg-black bg-opacity-50"
+      className="fixed z-[999] flex justify-center items-center w-full h-full overflow-y-hidden bg-black bg-opacity-50"
     >
       <div
         onClick={(e) => {
